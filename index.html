@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registration Form Validation</title>
+
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f2f2f2;
+    }
+
+    .container {
+      width: 350px;
+      background-color: white;
+      margin: 80px auto;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0px 0px 10px gray;
+    }
+
+    h1 {
+      text-align: center;
+    }
+
+    form div {
+      margin-bottom: 15px;
+    }
+
+    label {
+      display: block;
+      margin-bottom: 5px;
+    }
+
+    input {
+      width: 100%;
+      padding: 10px;
+      border: 1px solid gray;
+      border-radius: 5px;
+      box-sizing: border-box;
+    }
+
+    span {
+      color: red;
+      font-size: 14px;
+      display: none;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      border: none;
+      border-radius: 5px;
+      background-color: blue;
+      color: white;
+      font-size: 16px;
+      cursor: pointer;
+    }
+
+    button:disabled {
+      background-color: gray;
+      cursor: not-allowed;
+    }
+  </style>
+</head>
+
+<body>
+
+  <div class="container">
+    <h1>Registration Form</h1>
+
+    <form>
+
+      <div>
+        <label for="name">Name</label>
+        <input type="text" id="name" placeholder="Enter your full name">
+        <span id="name-error">Name must contain only letters</span>
+      </div>
+
+      <div>
+        <label for="email">E-mail</label>
+        <input type="email" id="email" placeholder="Enter your email">
+        <span id="email-error">Enter a valid email address</span>
+      </div>
+
+      <div>
+        <label for="password">Password</label>
+        <input type="password" id="password" placeholder="Min. 6 characters">
+        <span id="password-error">Password must be above 6 characters</span>
+      </div>
+
+      <button id="submit" disabled>Submit</button>
+
+    </form>
+  </div>
+
+  <script>
+
+    let submitBtn = document.getElementById("submit")
+
+    let nameInp = document.getElementById("name")
+    let emailInp = document.getElementById("email")
+    let passwordInp = document.getElementById("password")
+
+    let nameErr = document.getElementById("name-error")
+    let emailErr = document.getElementById("email-error")
+    let passwordErr = document.getElementById("password-error")
+
+    function validateForm() {
+
+      let nameRegex = /^[a-zA-Z ]+$/
+      let emailRegex = /^[a-zA-Z0-9]+@gmail\.com/
+      let passwordRegex = /^[a-zA-Z0-9!@#$%^&*()]{6,}$/
+
+      let validate = true
+
+      // Name Validation
+      if (nameRegex.test(nameInp.value) == false) {
+
+        nameErr.style.display = "inline"
+        validate = false
+
+      }
+      else {
+
+        nameErr.style.display = "none"
+
+      }
+
+      // Email Validation
+      if (emailRegex.test(emailInp.value) == false) {
+
+        emailErr.style.display = "inline"
+        validate = false
+
+      }
+      else {
+
+        emailErr.style.display = "none"
+
+      }
+
+      // Password Validation
+      if (passwordRegex.test(passwordInp.value) == false) {
+
+        passwordErr.style.display = "inline"
+        validate = false
+
+      }
+      else {
+
+        passwordErr.style.display = "none"
+
+      }
+
+      // Enable / Disable Button
+      if (validate == true) {
+
+        submitBtn.disabled = false
+
+      }
+      else {
+
+        submitBtn.disabled = true
+
+      }
+
+    }
+
+    // Real-time Validation
+    nameInp.addEventListener("keyup", validateForm)
+    emailInp.addEventListener("keyup", validateForm)
+    passwordInp.addEventListener("keyup", validateForm)
+
+    // Submit Button
+    submitBtn.addEventListener("click", function (event) {
+
+      event.preventDefault()
+
+      alert("Form submitted successfully")
+
+    })
+
+  </script>
+
+</body>
+
+</html>
